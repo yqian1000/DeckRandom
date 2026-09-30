@@ -26,11 +26,11 @@ npm run build
 1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → 连接本仓库。
 2. 构建设置：
    - **Build command:** `npm run build`
-   - **Deploy command:** `npx wrangler deploy`（新控制台默认值，保持即可）
+   - **Deploy command:** `npx wrangler deploy --assets=./dist`
    - **Node version:** `20` 或更高
 3. 不要填写 Pages 的 Output directory，也不要把构建命令改成 `npm run deploy`。
 
-`wrangler.toml` 里的 `[assets]` 指向 `dist/`，这样 `wrangler deploy` 会上传构建产物，而不需要 Worker 入口文件。
+`wrangler.toml` 已配置 `main = "./worker.js"` 和 `[assets]`。控制台默认的 `npx wrangler deploy` 会走自动检测，容易把 Vite 项目当成 Pages 并丢掉静态目录；加上 `--assets=./dist` 即可。
 
 ### 本机 Wrangler
 
