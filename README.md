@@ -17,18 +17,24 @@ npm run build
 
 产物在 `dist/`。
 
-## 部署到 Cloudflare Pages
+## 部署到 Cloudflare
 
-1. 把仓库推到 GitHub / GitLab 等。
-2. 在 [Cloudflare Dashboard](https://dash.cloudflare.com/) → Workers & Pages → Create → Pages → 连接该仓库。
-3. 构建设置：
+当前仓库按 **Workers 静态资源** 配置（控制台会执行 `npm run build`，再执行 `npx wrangler deploy`）。
+
+### Git 连接
+
+1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → 连接本仓库。
+2. 构建设置：
    - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-   - **Node version:** 20 或更高
-4. 保存并部署。
+   - **Deploy command:** `npx wrangler deploy`（新控制台默认值，保持即可）
+   - **Node version:** `20` 或更高
+3. 不要填写 Pages 的 Output directory，也不要把构建命令改成 `npm run deploy`。
 
-也可以在本机登录 Wrangler 后执行：
+`wrangler.toml` 里的 `[assets]` 指向 `dist/`，这样 `wrangler deploy` 会上传构建产物，而不需要 Worker 入口文件。
+
+### 本机 Wrangler
 
 ```bash
+npx wrangler login
 npm run deploy
 ```
